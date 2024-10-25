@@ -43,3 +43,29 @@ INSERT INTO Calificaciones (estudiante_id, asignatura_id, calificacion, fecha_ev
 (1, 2, 9.0, '2024-10-23'),
 (2, 1, 7.8, '2024-10-23'),
 (2, 2, 8.2, '2024-10-23');
+
+-- Listar todos los estudiantes
+SELECT * FROM Estudiantes;
+
+-- Consultar asignaturas disponibles
+SELECT * FROM Asignaturas;
+
+-- Consultar calificaciones de los estudiantes
+SELECT C.calificacion_id, E.nombre AS Estudiante, A.nombre AS Asignatura, C.calificacion, C.fecha_evaluacion
+FROM Calificaciones C
+JOIN Estudiantes E ON C.estudiante_id = E.estudiante_id
+JOIN Asignaturas A ON C.asignatura_id = A.asignatura_id;
+
+-- Consultar promedio de calificaciones por estudiante
+SELECT E.nombre AS Estudiante, AVG(C.calificacion) AS Promedio
+FROM Calificaciones C
+JOIN Estudiantes E ON C.estudiante_id = E.estudiante_id
+GROUP BY E.nombre;
+
+-- Buscar calificaciones por asignatura
+SELECT E.nombre AS Estudiante, C.calificacion, A.nombre AS Asignatura
+FROM Calificaciones C
+JOIN Estudiantes E ON C.estudiante_id = E.estudiante_id
+JOIN Asignaturas A ON C.asignatura_id = A.asignatura_id
+WHERE A.nombre = 'Matemáticas';
+
